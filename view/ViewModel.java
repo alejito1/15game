@@ -1,8 +1,6 @@
 package view;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class ViewModel extends JFrame {
     private JPanel panel;
@@ -18,55 +16,58 @@ public class ViewModel extends JFrame {
         initUI();
 
         setTitle("15 Puzzle");
-        setSize(400, 400);
+        setSize(1300, 700);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
+        getContentPane().setBackground(Color.decode("#ccc0b4"));
     }
 
     /**
      * For cycle to make more efficient the creation of the buttons
      */
     private void initBoard() {
-        int num = 1;
+        int num = 1; //Keeps track of the number to be assigned to each button
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
                 if (num <= 15) {
                     board[i][j] = num;
                     buttons[i][j] = new JButton(String.valueOf(num));
-                    buttons[i][j].addActionListener(new ButtonClickListener(i, j));
+                    buttons[i][j].setBackground(Color.decode("#eee4d9"));
+                    buttons[i][j].setForeground(Color.decode("#81776f"));
+                    buttons[i][j].setFont(new Font("Helvetica", Font.BOLD, 20));
+                    buttons[i][j].setBorder(BorderFactory.createLineBorder(Color.decode("#b7aea1"), 2));
                 } else {
                     board[i][j] = 0;  // The empty space
                     buttons[i][j] = new JButton("");
                 }
-                panel.add(buttons[i][j]);
-                num++;
+                panel.add(buttons[i][j]);//The current button is added to the main panel of the frame.
+                num++;//The current number is incremented for the next iteration.
             }
         }
     }
 
     private void initUI() {
-        add(panel);
-    }
+        // Create a new panel for put the new button
+        JPanel bottomPanel = new JPanel(new BorderLayout());
 
-    private class ButtonClickListener implements ActionListener {
-        private int x, y;
+        // Locate the panel of the game on the center
+        bottomPanel.add(panel, BorderLayout.CENTER);
 
-        public ButtonClickListener(int x, int y) {
-            this.x = x;
-            this.y = y;
-        }
+        // Locate the new button y the low part
+        JButton newButton = new JButton("New game");
+        newButton.setBackground(Color.decode("#eee4d9")); // Cambiar el color de fondo
+        newButton.setForeground(Color.decode("#81776f")); // Cambiar el color del texto
+        newButton.setFont(new Font("Helvetica", Font.BOLD, 14)); // Cambiar la fuente y el tamaño
+        newButton.setBorder(BorderFactory.createLineBorder(Color.decode("#b7aea1"), 2)); // Cambiar el borde
+        bottomPanel.add(newButton, BorderLayout.SOUTH);
 
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            // Handle button click, move pieces
-            // Implement the logic to move pieces based on the click
-        }
+        add(bottomPanel);
     }
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            ViewModel viewModel = new ViewModel();
-            viewModel.setVisible(true);
+            ViewModel puzzle = new ViewModel();
+            puzzle.setVisible(true);
         });
     }
 }
