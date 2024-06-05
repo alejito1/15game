@@ -1,4 +1,4 @@
-package view;
+package model;
 
 import exceptions.ImpossibleSwapException;
 import exceptions.OutOfRangeException;
