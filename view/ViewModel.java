@@ -7,6 +7,7 @@ public class ViewModel extends JFrame {
     private JPanel buttonPanel; // Nuevo panel para los botones de los números
     private JButton[][] buttons;
     private int[][] board;
+    private JButton newGame;
 
     public ViewModel() {
         board = new int[4][4];
@@ -58,13 +59,13 @@ public class ViewModel extends JFrame {
 
         // Crear un nuevo panel para contener el botón y establecer su tamaño
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        JButton newButton = new JButton("New Game");
-        newButton.setBackground(Color.decode("#eee4d9")); // Cambiar el color de fondo
-        newButton.setForeground(Color.decode("#81776f")); // Cambiar el color del texto
-        newButton.setFont(new Font("Arial", Font.BOLD, 14)); // Cambiar la fuente y el tamaño
-        newButton.setBorder(BorderFactory.createLineBorder(Color.decode("#b7aea1"), 2)); // Cambiar el borde
-        bottomPanel.add(newButton, BorderLayout.SOUTH);
-        buttonPanel.add(newButton); // Agregar el botón al panel
+        JButton newGame = new JButton("New Game");
+        newGame.setBackground(Color.decode("#eee4d9")); // Cambiar el color de fondo
+        newGame.setForeground(Color.decode("#81776f")); // Cambiar el color del texto
+        newGame.setFont(new Font("Arial", Font.BOLD, 14)); // Cambiar la fuente y el tamaño
+        newGame.setBorder(BorderFactory.createLineBorder(Color.decode("#b7aea1"), 2)); // Cambiar el borde
+        bottomPanel.add(newGame, BorderLayout.SOUTH);
+        buttonPanel.add(newGame); // Agregar el botón al panel
         bottomPanel.add(buttonPanel, BorderLayout.SOUTH); // Agregar el panel del botón al panel inferior
 
         // Agregar el panel a la ventana
@@ -76,17 +77,16 @@ public class ViewModel extends JFrame {
         return buttonPanel;
     }
 
-    // Setter para el botón nuevo
-    public void setNewButton(JButton newButton) {
-        this.buttonPanel = buttonPanel;
-    }
-
     // Getter para los botones de los números
     public JButton[][] getNumberButtons() {
         return buttons;
     }
+    
+    public JButton getNewGame() {
+        return newGame;
+    }
 
-    // Setter para los botones de los números
+    // Setter para los botones de los nmeros
     public void setNumberButtons(JButton[][] buttons) {
         this.buttons = buttons;
     }

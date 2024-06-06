@@ -36,7 +36,7 @@ public class GameModel {
 
     /**
      * Change the board
-     * @param board an 4 * 4 int matrix
+     * @param board a 4 * 4 int matrix
      */
     public void setBoard(int[][] board){
         this.board = board;
@@ -150,7 +150,7 @@ public class GameModel {
      * Check if the player win.
      * @return true if the player win.
      */
-    private boolean checkForWin(){
+    public boolean checkForWin(){
         if(board == new int[][]{{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}, {13, 14, 15, 0}}){
             return true;
         }else {
