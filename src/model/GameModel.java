@@ -24,6 +24,7 @@ public class GameModel {
         random = new Random();
         zeroXPos = 3;
         zeroYPos = 3;
+        shuffle();
     }
 
     /**
@@ -88,9 +89,15 @@ public class GameModel {
             }
         }
         //add 0 to board
-        board[3][3] = 0;
-        zeroXPos = 3;
-        zeroYPos = 3;
+        for(int i = 0; i < board.length; i++){
+            for(int j = 0; j < board[i].length; j++){
+                if(board[i][j] == 0){
+                    zeroXPos = j;
+                    zeroYPos = i;
+                    return;
+                }
+            }
+        }
     }
 
     /**

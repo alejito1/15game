@@ -1,61 +1,43 @@
 package control;
 import view.*;
 import model.*;
+import exceptions.*;
 import javax.swing.*;
 import java.awt.event.*;
 
 public class ControlView{
     private GameModel model;
     private ViewModel view;
-    private ButtonsListener buttonsListener;
-
     public ControlView(GameModel model, ViewModel view){
         this.model = model;
         this.view = view;
-          viewSetup();
-
+        view.updateBoard(model.getBoard());
+        view.addTileButtonListener(new ButtonListener());
+        view.addNewGameButtonListener(new ButtonListener()); // Added this line
     }
-    public void viewSetup(){
+    class ButtonListener implements ActionListener{
+        public void actionPerformed(ActionEvent e){
+            JButton button = (JButton)e.getSource();
+            if (button.getText().equals("Restart")) {
+                model.shuffle();
+                view.updateBoard(model.getBoard());
+                return;
+            }
+            int value = Integer.parseInt(button.getText());
+            try {
+                model.swapWith0(value);
+                view.updateBoard(model.getBoard());
+                if (model.checkForWin()) {
+                    JOptionPane.showMessageDialog(view, "You win!");
+                }
+            } catch (ImpossibleSwapException | SwapZeroException | OutOfRangeException ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
+    }
+    public static void main(String[] args) {
+        GameModel model = new GameModel();
+        ViewModel view = new ViewModel(model);
         view.setVisible(true);
-        /*
-        view.getNewGame().addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e){
-                gameHandler();
-            }
-        });
-
-         */
-        // Add listeners for number buttons
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
-               JButton button = view.getNumberButtons()[i][j];
-               button.addActionListener(buttonsListener);
-            }
-        }
     }
-    private void gameHandler(){
-        try{
-            model.shuffle();
-            view.updateButtons(model.getBoard());
-            while (!model.checkForWin()){
-                // Add logic to handle user moves and update the view
-            }
-            JOptionPane.showMessageDialog(view, "You win!");
-        }catch(Exception ex){
-            System.out.println(ex.getMessage());
-        }
-    }
-
-    public class ButtonsListener implements ActionListener{
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            System.out.println(e.getActionCommand());
-        }
-    }
-
-
 }
-
-
