@@ -1,4 +1,4 @@
-package control;
+/*package control;
 import view.*;
 import model.*;
 import javax.swing.*;
@@ -17,22 +17,33 @@ public class ControlView{
     public void viewSetup(){
         view.setVisible(true);
         view.getNewGame().addActionListener(new ActionListener(){
+            @Override
             public void actionPerformed(ActionEvent e){
-                @Override
-                public void actionPerformed(ActionEvent e){
-                    gameHandler();
-                }
+                gameHandler();
             }
         });
+        // Add listeners for number buttons
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                int x = i;
+                int y = j;
+                view.getNumberButton(i, j).addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        view.handleButtonClick(x, y);
+                    }
+                });
+            }
+        }
     }
     private void gameHandler(){
         try{
-            model.setBoard();
             model.shuffle();
-            while (model.checkForWin() == false){
-
-
+            view.updateButtons(model.getBoard());
+            while (!model.checkForWin()){
+                // Add logic to handle user moves and update the view
             }
+            JOptionPane.showMessageDialog(view, "You win!");
         }catch(Exception ex){
             System.out.println(ex.getMessage());
         }
@@ -40,3 +51,5 @@ public class ControlView{
 
 
 }
+*/
+
