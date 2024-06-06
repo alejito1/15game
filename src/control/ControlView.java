@@ -1,4 +1,4 @@
-/*package control;
+package control;
 import view.*;
 import model.*;
 import javax.swing.*;
@@ -7,6 +7,7 @@ import java.awt.event.*;
 public class ControlView{
     private GameModel model;
     private ViewModel view;
+    private ButtonsListener buttonsListener;
 
     public ControlView(GameModel model, ViewModel view){
         this.model = model;
@@ -16,23 +17,20 @@ public class ControlView{
     }
     public void viewSetup(){
         view.setVisible(true);
+        /*
         view.getNewGame().addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
                 gameHandler();
             }
         });
+
+         */
         // Add listeners for number buttons
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
-                int x = i;
-                int y = j;
-                view.getNumberButton(i, j).addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        view.handleButtonClick(x, y);
-                    }
-                });
+               JButton button = view.getNumberButtons()[i][j];
+               button.addActionListener(buttonsListener);
             }
         }
     }
@@ -49,7 +47,15 @@ public class ControlView{
         }
     }
 
+    public class ButtonsListener implements ActionListener{
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            System.out.println(e.getActionCommand());
+        }
+    }
+
 
 }
-*/
+
 

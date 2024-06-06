@@ -1,4 +1,5 @@
 package view;
+import control.ControlView;
 import model.GameModel;
 import exceptions.*;
 import javax.swing.*;
@@ -37,6 +38,7 @@ public class ViewModel extends JFrame {
             for (int j = 0; j < 4; j++) {
                 if (num <= 15) {
                     numberButtons[i][j] = new JButton(String.valueOf(num));
+                    numberButtons[i][j].setActionCommand("" + num);
                     numberButtons[i][j].setBackground(Color.decode("#eee4d9"));
                     numberButtons[i][j].setForeground(Color.decode("#81776f"));
                     numberButtons[i][j].setFont(new Font("Helvetica", Font.BOLD, 20));
@@ -44,6 +46,7 @@ public class ViewModel extends JFrame {
                 } else {
                     //board[i][j] = 0;  // The empty space
                     numberButtons[i][j] = new JButton("");
+                    numberButtons[i][j].setActionCommand("");
                     numberButtons[i][j].setBackground(Color.decode("#eee4d9"));
                     numberButtons[i][j].setBorder(BorderFactory.createLineBorder(Color.decode("#b7aea1"), 2));
                 }
@@ -66,8 +69,10 @@ public class ViewModel extends JFrame {
             for (int j = 0; j < 4; j++) {
                 if (board[i][j] == 0) {
                     numberButtons[i][j].setText("");
+                    numberButtons[i][j].setActionCommand("");
                 } else {
                     numberButtons[i][j].setText(String.valueOf(board[i][j]));
+                    numberButtons[i][j].setActionCommand(String.valueOf(board[i][j]));
                 }
             }
         }
@@ -145,7 +150,7 @@ public class ViewModel extends JFrame {
     public void setNumberButtons(JButton[][] buttons) {
         this.numberButtons = buttons;
     }
-
+    
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             GameModel model = new GameModel(); // Create an instance of GameModel
